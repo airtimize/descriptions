@@ -2,7 +2,7 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const db = require('../database')
+const db = require('../database');
 const port = 3000;
 const expressStaticGzip =require("express-static-gzip");
 
@@ -44,6 +44,16 @@ app.get('/listing/amenity/:listingID',(req,res)=>{
             }
         }
     })
+})
+
+// NEW CRUD
+
+app.post('/listing/desc/', (req, res) => {
+    
+})
+
+app.post('/listing/amenity/', (req, res) => {
+    
 })
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
