@@ -48,13 +48,13 @@ app.get('/listing/amenity/:listingID',(req,res)=>{
 
 // NEW CRUD
 
-app.post('/listing/desc/', (req, res) => {
+// app.post('/listing/desc/', (req, res) => {
     
-})
+// })
 
-app.post('/listing/amenity/', (req, res) => {
+// app.post('/listing/amenity/', (req, res) => {
     
-})
+// })
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 module.exports = app;
