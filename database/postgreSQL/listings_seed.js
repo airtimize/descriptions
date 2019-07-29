@@ -2,7 +2,7 @@
 const faker = require('faker');
 const fs = require('fs');
 
-const stream = fs.createWriteStream('./seedingFiles/test_seed_listings.csv');
+const stream = fs.createWriteStream('./seedingFiles/seed_listings.csv');
 
 const write = () => {
   return new Promise((resolve) => {
@@ -44,7 +44,7 @@ const generateListingsData = async () => {
           beds.push(currBedoption);
         }
 
-        let bednum = bedcounter;
+        bednum = bedcounter;
       } else if (listingType === 'Private room') {
         bedrmnum = 1;
         bathrmnum = 1;
