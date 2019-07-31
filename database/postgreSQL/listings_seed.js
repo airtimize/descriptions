@@ -12,13 +12,12 @@ const write = () => {
 
 const generateListingsData = async () => {
   let listings_id = 1;
+  let hosts_id = 1;
 
-  while (listings_id <= 10) {
+  while (listings_id <= 10000000) {
     let header = faker.lorem.sentence(3);
     let title =  header.slice(0, header.length-1);
     let location = faker.address.city();
-    let host_name = faker.name.firstName();
-    let host_pic = faker.image.imageUrl();
 
     let typeOptions = ['Entire place','Private room','Hotel room','Shared room'];
     let typeIndex = Math.floor(Math.random() * 4);
@@ -72,72 +71,23 @@ const generateListingsData = async () => {
         bathrmnum = Math.floor(Math.random() * 1);
         guestmax = Math.floor(Math.random() * (5 - 1)) + 1;
         let bedoptionsShared = ['1 queen bed','1 single bed','2 single beds'];
-        let bedoption = bedoptionsShared[Math.floor(Math.random()*bedoptionsShared.length)]
-        beds = beds.push(bedoption);
+        let bedRandomIndex = Math.floor(Math.random() * 3);
+        bedoption = bedoptionsShared[bedRandomIndex];
+        beds = [bedoption];
         bednum = parseInt(bedoption.slice(0,1));
       }
     }
 
     generateDetail(type);
 
-    let highlights = [];
-    let guest = (guestmax === 1) ? guestmax + ' guest': guestmax + ' guests';
-    let bedrm = (bedrmnum === 1) ? bedrmnum + ' room' : bedrmnum + ' rooms';
-    let bed = (bednum === 1) ? bednum + ' bed' : bednum + ' beds';
-    let bath = (bathrmnum === 1) ? bathrmnum + ' bath' : bathrmnum + ' baths';
-
-    if (type === 'Entire place') {
-      highlights.push('{Entire apartment');
-      highlights.push(guest + '\t' + bedrm + '\t' + bed + '\t' + bath);
-    } else if (type === 'Private room') {
-      highlights.push('{Private room in house');
-      highlights.push(guest + '\t' + bedrm + '\t' + bed + '\t' + bath);
-    } else if (type === 'Hotel room') {
-      highlights.push('{Private room in hostel');
-      highlights.push(guest + '\t' + bedrm + '\t' + bed + '\t' + bath);
-    } else if (type === 'Shared room') {
-      let sharebath; 
-      if (bathrmnum === 0) {
-        sharebath = null;
-      } else if (bathrmnum === 1) {
-        sharebath = bathrmnum +' bath'
-      } else if (bathrmnum > 1) {  
-        sharebath = bathrmnum +' baths'
-      }
-      
-      highlights.push('{Shared room in house');
-      highlights.push(guest + '\t' + bedrm + '\t' + bed + '\t' + sharebath);
-    }
-    
-    let highlightsoptions = [host_name + ' is a Superhost', 'Sparkling clean', 
-    'Self check-in', 'Great location', 'Great check-in experience'];
-    highlightsoptions.sort(() => Math.random()-0.5);
-    highlightsoptions.slice(0,3)
-
-    let sentenceOptions = ['Velit voluptate iusto.', 'Et dolorum doloremque.', 'Qui corrupti ut.',
-    'In adipisci ea.', 'Ipsam dolores rerum.'];
-    sentenceOptions.sort(() => Math.random()-0.5);
-    sentenceOptions.slice(0,3);
-
-    for (let k = 0; k < 3; k++){
-      currentHighlightOption = highlightsoptions[k];
-      currentSentenceOption = sentenceOptions[k];
-
-      if (k === 2) {
-        currentSentenceOption = currentSentenceOption + '}';
-      } 
-
-      highlights.push(currentHighlightOption);
-      highlights.push(currentSentenceOption);
-    }
-
     let paragraphOptions = [`Dolor ab magnam doloribus praesentium sequi veritatis modi. Similique velit sit maxime id rerum dicta. Saepe animi perspiciatis quam.`, `Facere aut cum. Exercitationem a sed laboriosam tempore amet ut accusantium. Amet sit esse qui debitis ullam optio asperiores.`, `Ut quae quis voluptatum asperiores atque rerum voluptas quia hic. Odit dolores sed. Nisi id tenetur aut ipsum facilis perspiciatis eius.`, `Ipsum totam magnam doloremque nam consequatur occaecati. Debitis non aspernatur. Est nesciunt magni commodi enim aspernatur et.`, `Rem beatae totam eveniet sit. Voluptatem quidem necessitatibus ducimus ullam exercitationem aperiam quo qui quia. Consequatur cumque dolor quidem et aut provident amet esse.`];
     let paragraphIndex = Math.floor(Math.random() * 5);
     let general = 'General: ' + paragraphOptions[paragraphIndex];
 
-    let data = `${listings_id} | ${title} | ${location} | ${host_name} | ${host_pic} | ${type} | ${bedrmnum} | ${bathrmnum} | ${guestmax} | ${beds} | ${bednum} | ${highlights} | ${general}\n`;
+    // let data = `${listings_id} | ${title} | ${location} | ${host_name} | ${host_pic} | ${type} | ${bedrmnum} | ${bathrmnum} | ${guestmax} | ${beds} | ${bednum} | ${highlights} | ${general}\n`;
+    let data = `${listings_id}|${title}|${location}|${bedrmnum}|${bathrmnum}|${guestmax}|${beds}|${bednum}|${general}|${hosts_id}|${typeIndex+1}\n`;
     
-    if (listings_id % 1 === 0) {
+    if (listings_id % 500000 === 0) {
       console.log(listings_id);
     }
 
@@ -148,6 +98,7 @@ const generateListingsData = async () => {
     }
 
     listings_id++;
+    hosts_id++;
   }
 }
 

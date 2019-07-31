@@ -2,22 +2,6 @@ CREATE DATABASE descriptions WITH OWNER airtimize;
 
 \c descriptions airtimize
 
--- CREATE TABLE IF NOT EXISTS listings (
---   id SERIAL PRIMARY KEY, 
---   title VARCHAR(100), 
---   location VARCHAR(30), 
---   host_name VARCHAR(30), 
---   host_pic VARCHAR(40), 
---   type VARCHAR(20), 
---   bed_rm_num SMALLINT, 
---   bath_rm_num SMALLINT, 
---   guest_max SMALLINT, 
---   beds VARCHAR(200), 
---   bed_num SMALLINT, 
---   highlights VARCHAR(100)[], 
---   general TEXT
--- );
-
 CREATE TABLE IF NOT EXISTS hosts (
   id SERIAL PRIMARY KEY,
   name VARCHAR(30),
@@ -64,8 +48,8 @@ CREATE TABLE IF NOT EXISTS listings_amenities (
 
 CREATE TABLE IF NOT EXISTS highlights (
   id SERIAL PRIMARY KEY,
-  highlight_type VARCHAR(100),
-  additional_info VARCHAR(100)
+  type VARCHAR(100),
+  info VARCHAR(200)
 );
 
 CREATE TABLE IF NOT EXISTS listings_highlights (

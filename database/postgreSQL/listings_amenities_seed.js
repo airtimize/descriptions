@@ -16,7 +16,7 @@ const generateListingsAmenities = async () => {
   let amenity_list = ['Wifi', 'TV', 'Cable TV', 'Iron', 'Dryer', 'Hot water', 'Washer', 
   'Heating', 'Essentials', 'Laptop friendly workspace', 'Air conditioning'];
 
-  while (listings_id <= 100) {
+  while (listings_id <= 10000000) {
     while (amenities_id <= amenity_list.length) {
       
       let decidingNum = Math.floor(Math.random() * 2);
@@ -39,9 +39,9 @@ const generateListingsAmenities = async () => {
         additionalInfo = 'For guests convenience when they have early arrival or late departure';
       }
 
-      let data = `${listings_amenities_id} | ${listings_id} | ${amenities_id} | ${offers} | ${additionalInfo}\n`;
+      let data = `${listings_amenities_id}|${listings_id}|${amenities_id}|${offers}|${additionalInfo}\n`;
 
-      if (listings_amenities_id % 100 === 0) {
+      if (listings_amenities_id % 500000 === 0) {
         console.log(listings_amenities_id);
       }
 

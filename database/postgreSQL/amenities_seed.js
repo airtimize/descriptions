@@ -11,7 +11,7 @@ const write = () => {
 
 const generateAmenities = async () => {
   let amenities_id = 1;
-  // let amenity_list = ['Wifi', 'TV', 'Cable TV', 'Iron', 'Dryer', 'Hot water', 'Washer', 
+  // let amenities = ['Wifi', 'TV', 'Cable TV', 'Iron', 'Dryer', 'Hot water', 'Washer', 
   // 'Heating', 'Essentials', 'Laptop friendly workspace', 'Air conditioning', 'Baby bath', 
   // 'Kid books and toys', 'Crib', 'High chair', 'Room-darkening shades', 'Window guards',
   // 'Free parking on premises', 'Kitchen', 'Breakfast', 'Cooking basics', 'Private entrance', 
@@ -19,36 +19,50 @@ const generateAmenities = async () => {
   // 'Extra pillows and blankets', 'Luggage dropoff allowed', 'Long term stays allowed', 
   // 'Fire extinguisher', 'First aid kit', 'Smoke detector', 'Carbon monoxide detector'];
 
-  let amenity_list = ['Wifi', 'TV', 'Cable TV', 'Iron', 'Dryer', 'Hot water', 'Washer', 
+  let amenities = ['Wifi', 'TV', 'Cable TV', 'Iron', 'Dryer', 'Hot water', 'Washer', 
   'Heating', 'Essentials', 'Laptop friendly workspace', 'Air conditioning'];
 
-  let amenity_categories = {
-    basic: ['Wifi', 'TV', 'Cable TV', 'Iron', 'Dryer', 'Hot water', 'Washer', 
-    'Heating', 'Essentials', 'Laptop friendly workspace', 'Air conditioning']
-    // familyFeatures: ['Baby bath', 'Kid books and toys', 'Crib', 'High chair', 
-    // 'Room-darkening shades', 'Window guards'],
-    // facilities: ['Free parking on premises'],
-    // dining: ['Kitchen', 'Breakfast', 'Cooking basics'],
-    // guestAccess: ['Private entrance', 'Host greets you'],
-    // bedAndBath: ['Hangers', 'Hair dryer', 'Shampoo', 'Bed linens', 
-    // 'Extra pillows and blankets'],
-    // logistics: ['Luggage dropoff allowed', 'Long term stays allowed'],
-    // safetyFeatures: ['Fire extinguisher', 'First aid kit', 'Smoke detector', 
-    // 'Carbon monoxide detector']
+  let amenityList = {
+    'Basic': ['Wifi', 'TV', 'Cable TV', 'Iron', 'Dryer', 'Hot water', 'Washer', 'Heating', 
+    'Essentials', 'Laptop friendly workspace', 'Air conditioning'],
+    'Family features': ['Baby bath', 'Kid books and toys', 'Crib', 'High chair', 
+    'Room-darkening shades', 'Window guards'],
+    'Facilities': ['Free parking on premises'],
+    'Dining': ['Kitchen', 'Breakfast', 'Cooking basics'],
+    'Guest access': ['Private entrance', 'Host greets you'],
+    'Beds and bath': ['Hangers', 'Hair dryer', 'Shampoo', 'Bed linens', 'Extra pillows and blankets'],
+    'Logistics': ['Luggage dropoff allowed', 'Long term stays allowed'],
+    'Safety features': ['Fire extinguisher', 'First aid kit', 'Smoke detector', 'Carbon monoxide detector'],
+    'Not included': [],
+    'Outdoor': ['Patio or balcony','Garden or backyard']
+  }
+
+  let categoryList = {
+    'Basic': 1,
+    'Beds and bath': 2,
+    'Dining': 3,
+    'Facilities': 4,
+    'Family features': 5,
+    'Guest access': 6,
+    'Logistics': 7,
+    'Not included': 8,
+    'Outdoor': 9,
+    'Safety features': 10
   };
 
-  for (let n = 0; n < amenity_list.length; n++) {
-    let category = null;
+  let keys = Object.keys(categoryList);
+
+  for (let n = 0; n < amenities.length; n++) {
+    let category_id = 8;
     
-    let keys = Object.keys(amenity_categories);
     for (let o = 0; o < keys.length; o++) {
-      if (amenity_categories[keys[o]].includes(amenity_list[n])) {
-        category = keys[o];
-        break;
+      let currentAmenityList = amenityList[keys[o]];
+      if (currentAmenityList.includes(amenities[n])) {
+        category_id = categoryList[keys[o]];
       }
     }
 
-    let data = `${amenities_id} | ${amenity_list[n]} | ${category}\n`;
+    let data = `${amenities_id}|${amenities[n]}|${category_id}\n`;
     
     let canWrite = stream.write(data);
 
