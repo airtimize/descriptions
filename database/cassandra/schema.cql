@@ -2,7 +2,7 @@ CREATE KEYSPACE descriptions WITH REPLICATION = {'class' : 'SimpleStrategy', 're
 
 USE descriptions;
 
-CREATE TABLE descriptions (
+CREATE TABLE descs (
   descriptions_id uuid,
   listings_id int,
   bath_rm_num int,
@@ -10,12 +10,17 @@ CREATE TABLE descriptions (
   bed_rm_num int,
   beds text,
   general text,
+  guest_access text,
   guest_max int,
   highlights map<text, text>,
   host_name text,
   host_pic text,
+  interaction_with_guests text,
+  license_reg_num text,
   listing_type text,
   location text,
+  other_things_to_note text,
+  the_space text,
   title text,
   PRIMARY KEY (listings_id)
 );

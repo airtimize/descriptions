@@ -11,9 +11,9 @@ const write = () => {
 }
 
 const generateListingsData = async () => {
-  let listings_id = 10000011;
+  let listings_id = 6000001;
 
-  while (listings_id <= 10000020) {
+  while (listings_id <= 8000000) {
     const descriptions_id = Uuid.random();
     let header = faker.lorem.sentence(3);
     let title =  header.slice(0, header.length-1);
@@ -149,12 +149,31 @@ const generateListingsData = async () => {
     let paragraphOptions = [`Dolor ab magnam doloribus praesentium sequi veritatis modi. Similique velit sit maxime id rerum dicta. Saepe animi perspiciatis quam.`, `Facere aut cum. Exercitationem a sed laboriosam tempore amet ut accusantium. Amet sit esse qui debitis ullam optio asperiores.`, `Ut quae quis voluptatum asperiores atque rerum voluptas quia hic. Odit dolores sed. Nisi id tenetur aut ipsum facilis perspiciatis eius.`, `Ipsum totam magnam doloremque nam consequatur occaecati. Debitis non aspernatur. Est nesciunt magni commodi enim aspernatur et.`, `Rem beatae totam eveniet sit. Voluptatem quidem necessitatibus ducimus ullam exercitationem aperiam quo qui quia. Consequatur cumque dolor quidem et aut provident amet esse.`];
     let paragraphIndex = Math.floor(Math.random() * 5);
     let general = paragraphOptions[paragraphIndex];
+    let theSpace = faker.lorem.paragraph(5);
+    let guestAccess = faker.lorem.paragraph(5);
+    let interactionWithGuests = faker.lorem.paragraph(5);
+    let otherThingsToNote = faker.lorem.paragraph(5);
 
-    let data = `${descriptions_id}|${listings_id}|${bathrmnum}|${bednum}|${bedrmnum}|${beds}|${general}|${guestmax}|${highlight_list}|${host_name}|${host_pic}|${type}|${location}|${title}\n`;
+    let licensenum = '';
+    for (var n = 0; n < 7; n++){
+      licensenum += faker.random.number({min:0, max:9});
+    }
+
+    let licenseRegNum = 'STR-' + licensenum;
+
+    let data = '';
+
+    if (listings_id <= 1000000) {
+      data = `${descriptions_id}|${listings_id}|${bathrmnum}|${bednum}|${bedrmnum}|${beds}|${general}|${guestAccess}|${guestmax}|${highlight_list}|${host_name}|${host_pic}|${interactionWithGuests}|${licenseRegNum}|${type}|${location}|${otherThingsToNote}|${theSpace}|${title}\n`;
+    } else if (listings_id >= 1000001 && listings_id <= 3000000) {
+      data = `${descriptions_id}|${listings_id}|${bathrmnum}|${bednum}|${bedrmnum}|${beds}|${general}||${guestmax}|${highlight_list}|${host_name}|${host_pic}||${licenseRegNum}|${type}|${location}||${theSpace}|${title}\n`;
+    } else if (listings_id >= 3000001) {
+      data = `${descriptions_id}|${listings_id}|${bathrmnum}|${bednum}|${bedrmnum}|${beds}|${general}||${guestmax}|${highlight_list}|${host_name}|${host_pic}||${licenseRegNum}|${type}|${location}|||${title}\n`;
+    }
 
     let canWrite = stream.write(data);
     
-    if (listings_id % 1 === 0) {
+    if (listings_id % 500000 === 0) {
       console.log(listings_id);
     }
 
