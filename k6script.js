@@ -12,11 +12,11 @@ export default function() {
   let randomGetNum = Math.floor(Math.random() * (10000001 - 1) + 1);
   let randomPostNum = Math.floor(Math.random() * (2000000 - 1000001) + 1000001);
   
-  let res = http.get(`http://localhost:3000/listing/desc/${randomGetNum}/`);
-  let res = http.get(`http://localhost:3000/listing/amenity/${randomGetNum}/`);
+  let res = http.get(`http://localhost:3000/api/${randomGetNum}/desc/`);
+  // let res = http.get(`http://localhost:3000/api/${randomGetNum}/amenity/`);
   
-  let res = http.post(`http://localhost:3000/listing/desc/${randomPostNum}/`);
-  let res = http.post(`http://localhost:3000/listing/amenity/${randomPostNum}/`);
+  // let res = http.post(`http://localhost:3000/api/${randomPostNum}/desc/`);
+  // let res = http.post(`http://localhost:3000/api/${randomPostNum}/amenity/`);
 
   check(res, {
     "status was 200": (r) => r.status == 200
