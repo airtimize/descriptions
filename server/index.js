@@ -48,7 +48,7 @@ app.use('/:listingID',express.static('public'));
 //     })
 // })
 
-app.get('/listing/desc/:listingID', (req, res) => {
+app.get('/api/:listingID/desc', (req, res) => {
   var id = req.params.listingID;
   db.findDesc(id, (err, data) => {
     if (err) {
@@ -60,18 +60,18 @@ app.get('/listing/desc/:listingID', (req, res) => {
   })
 })
 
-app.get('/listing/amenity/:listingID',(req, res)=>{
-    var id = req.params.listingID;
-    db.findAmen(id, (err,data) => {
-        if (err) {
-            res.status(500).send(err);
-        } else {
-          res.status(200).send(data);
-        }
-    })
+app.get('/api/:listingID/amenity',(req, res)=>{
+  var id = req.params.listingID;
+  db.findAmen(id, (err,data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(200).send(data);
+    }
+  })
 })
 
-app.post('/listing/desc/:listingID', (req, res) => {
+app.post('/api/:listingID/desc', (req, res) => {
   var id = req.params.listingID;
   db.addDesc(id, (err, data) => {
     if (err) {
@@ -84,7 +84,7 @@ app.post('/listing/desc/:listingID', (req, res) => {
   })
 })
 
-app.post('/listing/amenity/:listingID',(req, res) =>{
+app.post('/api/:listingID/amenity',(req, res) =>{
   var id = req.params.listingID;
   db.addAmen(id, (err, data) => {
     if (err) {
