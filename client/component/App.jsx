@@ -14,30 +14,44 @@ class App extends React.Component {
             highlights: {},
             desc: {},
             detail: {},
-            amenity: {},
+            guess: 'test',
+            amenity: {}
         }
     }
 
     componentDidMount(){
-        this.getDescInfo();
         this.getAmenInfo();
+        this.getDescInfo();
     }
 
-    getDescInfo(){
+    getDescInfo() {
         const parts = window.location.href.split('/');
         const id = parts[parts.length - 2];
         $.ajax({
             method:'GET',
             url: `/listing/desc/${id}`,
             contentType: 'application/json',
-            success: (desc)=>{
+            success: (desc) => {
+                let bedList = desc.beds.split(',');
                 this.setState({
                     title: desc.title,
                     location: desc.location,
-                    host: desc.host,
+                    host: {
+                      name: desc.host_name,
+                      pic: desc.host_pic
+                    },
                     highlights: desc.highlights,
-                    desc: desc.desc,
-                    detail: desc.detail    
+                    desc: {
+                      General: desc.general,
+                    },
+                    detail: {
+                      bedrmnum: desc.bed_rm_num,
+                      beds: bedList,
+                      bathrmnum: desc.bath_rm_num,
+                      guestmax: desc.guest_max,
+                      bednum: desc.bed_num,
+                      type: desc.listing_type
+                    }    
                 })
             }
         })
@@ -50,9 +64,31 @@ class App extends React.Component {
             method:'GET',
             url: `/listing/amenity/${id}`,
             contentType: 'application/json',
-            success: (amenity)=>{
+            success: (amenityy) => {
+                let amenities = {
+                  Basic: {},
+                  'Bed and bath': {},
+                  Dining: {},
+                  'Guest access': {},
+                  'Safety features': {},
+                  Logistics: {},
+                  'Not included': {}
+                }
+
+                let amenityyObj = {};
+
+                for (let i = 0; i < amenityy.length; i++) {
+                  if (amenityy[i].category === 'basic') {
+                    let amenityyName = amenityy[i].name;
+                    amenityyObj[amenityyName] = amenityy[i];
+                  } 
+                }
+                
+                amenities['Basic'] = amenityyObj;
+                console.log(amenities);
+
                 this.setState({
-                    amenity: amenity.amenities
+                  amenity: amenities
                 })
             }
         })

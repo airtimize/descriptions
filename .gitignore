@@ -1,1 +1,6 @@
+.DS_Store
+package-lock.json
+seedingFiles
 node_modules
+newrelic.js
+newrelic_agent.log
